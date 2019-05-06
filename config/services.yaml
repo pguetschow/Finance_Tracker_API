@@ -1,0 +1,40 @@
+parameters:
+  locale: 'en'
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+
+  Symfony\Component\Security\Core\Encoder\Argon2iPasswordEncoder: ~
+
+  App\:
+    resource: '../src/*'
+    exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
+  App\Mailer\MailHandler:
+    arguments:
+        $senderAddress: no-reply@awe.some
+
+  App\Mailer\MailHandlerInterface:
+    alias: App\Mailer\MailHandler
+
+  App\Controller\:
+    resource: '../src/Controller'
+    tags: ['controller.service_arguments']
+
+  App\ComView\View\:
+    resource: '../src/ComView/View/*'
+    tags:
+      - { name: 'com_view.view' }
+
+  App\ComView\CommandProcessor\:
+    resource: '../src/ComView/CommandProcessor/*'
+    tags:
+      - { name: 'com_view.command_processor' }
+
+  App\Listener\KernelEventListener:
+    tags:
+      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+      - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
