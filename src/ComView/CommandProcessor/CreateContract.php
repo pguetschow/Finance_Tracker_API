@@ -51,7 +51,6 @@ class CreateContract implements CommandProcessorInterface
      * @param string $name
      * @param array $request
      * @return CommandResponse
-     * @throws CommandNotFoundException
      * @throws \Exception
      */
     public function process(string $name, array $request): CommandResponse
@@ -76,12 +75,27 @@ class CreateContract implements CommandProcessorInterface
                 ->setId($request['id'])
                 ->setName($request['name'])
                 ->setAmount($request['amount'])
-                ->setDueInterval('monthly')
                 ->setStartDate(\DateTime::createFromFormat('Y-m-d', $request['startDate']))
                 ->setEndDate(\DateTime::createFromFormat('Y-m-d', $request['endDate']))
                 ->setUser($user)
                 ->setCategory($category);
 
+            switch ($request['interval']) {
+                case 'annually':
+                    $rrule = Contract::ANNUALLY;
+                    break;
+                case 'biannually':
+                    $rrule = Contract::BIANNUALLY;
+                    break;
+                case 'quarterly':
+                    $rrule = Contract::QUARTERLY;
+                    break;
+                case 'monthly':
+                default:
+                    $rrule = Contract::MONTHLY;
+                    break;
+            }
+            $contract->setDueInterval($rrule);
             $status = 'SUCCESS';
         } catch (\Exception $exception) {
             $status = 'ERROR';
