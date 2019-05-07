@@ -1,0 +1,36 @@
+security:
+  providers:
+    users:
+      entity:
+        class: 'App\Entity\User'
+  encoders:
+    App\Entity\User: argon2i
+
+  firewalls:
+    dev:
+      pattern: ^/(_(profiler|wdt)|css|images|js)/
+      security: false
+
+    register:
+      pattern: ^/register
+      anonymous: ~
+
+    oauth_token:
+      pattern:    ^/oauth/v2/token
+      security:   false
+
+    oauth_authorize:
+      pattern:    ^/oauth/v2/auth
+      json_login:
+        check_path: login
+        username_path: security.credentials.login
+        password_path: security.credentials.password
+
+    api:
+      pattern:    ^/cv
+      fos_oauth:  true
+      stateless:  true
+      anonymous:  false
+
+  access_control:
+    - { path: ^/cv, roles: [ IS_AUTHENTICATED_FULLY ] }

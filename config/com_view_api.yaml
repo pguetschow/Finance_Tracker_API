@@ -1,0 +1,5 @@
+eos_com_view_server:
+  schema:
+    views: ~
+    commands: ~
+    schemas: ~
