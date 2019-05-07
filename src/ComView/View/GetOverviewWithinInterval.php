@@ -9,10 +9,8 @@ use App\Entity\Entry;
 use App\Helper\AuthenticationAwareHelper;
 use App\Repository\ContractRepository;
 use App\Repository\EntryRepository;
-use Eos\ComView\Server\Exception\ViewNotFoundException;
 use Eos\ComView\Server\Model\Value\ViewRequest;
 use Eos\ComView\Server\Model\Value\ViewResponse;
-use Recurr\RecurrenceCollection;
 use Recurr\Rule;
 use Recurr\Transformer\ArrayTransformer;
 
@@ -70,16 +68,19 @@ class GetOverviewWithinInterval extends AbstractView
         }
 
         $user = $this->protectedAware->getUser();
-
         $entries = $this->entryRepository->findWithinInterval($start, $end, $user);
         $contracts = $this->contractRepository->findWithinInterval($start, $end, $user);
 
-        $result = [];
-        $graphData = [
-            'income' => [],
-            'expenses' => [],
+        $result = [
+            'meta' => [
+                'totalIncome' => 0,
+                'totalExpenses' => 0,
+            ],
+            'graphData' => [
+                'income' => [],
+                'expenses' => [],
+            ],
         ];
-        $totalExpenses = $totalIncome = 0;
 
         /** @var Entry $entry */
         foreach ($entries as $entry) {
@@ -91,19 +92,7 @@ class GetOverviewWithinInterval extends AbstractView
                 'category' => $categoryName,
             ];
 
-            if ($entry->getAmount() > 0) {
-                if (!\array_key_exists($categoryName, $graphData['income'])) {
-                    $graphData['income'][$categoryName] = 0;
-                }
-                $graphData['income'][$categoryName] += $entry->getAmount();
-                $totalIncome += $entry->getAmount();
-            } else {
-                if (!\array_key_exists($categoryName, $graphData['expenses'])) {
-                    $graphData['expenses'][$categoryName] = 0;
-                }
-                $graphData['expenses'][$categoryName] += $entry->getAmount();
-                $totalExpenses += $entry->getAmount();
-            }
+            $this->calculateGraphData((float)$entry->getAmount(), $result, $categoryName);
         }
 
         /** @var Contract $contract */
@@ -127,28 +116,11 @@ class GetOverviewWithinInterval extends AbstractView
                     'category' => $categoryName,
                 ];
 
-                if ($contract->getAmount() > 0) {
-                    if (!\array_key_exists($categoryName, $graphData['income'])) {
-                        $graphData['income'][$categoryName] = 0;
-                    }
-                    $graphData['income'][$categoryName] += $contract->getAmount();
-                    $totalIncome += $contract->getAmount();
-                } else {
-                    if (!\array_key_exists($categoryName, $graphData['expenses'])) {
-                        $graphData['expenses'][$categoryName] = 0;
-                    }
-                    $graphData['expenses'][$categoryName] += $contract->getAmount();
-                    $totalExpenses += $contract->getAmount();
-                }
+                $this->calculateGraphData((float)$contract->getAmount(), $result, $categoryName);
             }
         }
 
-        $result['graphData'] = $graphData;
-        $result['meta'] = [
-            'calculatedBalance' => $totalIncome + $totalExpenses,
-            'totalIncome' => $totalIncome,
-            'totalExpenses' => $totalExpenses,
-        ];
+        $result['meta']['calculatedBalance'] = $result['meta']['totalIncome'] - $result['meta']['totalExpenses'];
 
         return $this->createResponse(
             $request,
@@ -156,5 +128,27 @@ class GetOverviewWithinInterval extends AbstractView
         );
     }
 
+    /**
+     * @param float $amount
+     * @param array $resultData
+     * @param string $categoryName
+     */
+    private function calculateGraphData(float $amount, array &$resultData, string $categoryName): void
+    {
+        if ($amount > 0) {
+            if (!\array_key_exists($categoryName, $resultData['graphData']['income'])) {
+                $resultData['graphData']['income'][$categoryName] = 0;
+            }
+            $resultData['graphData']['income'][$categoryName] += $amount;
+            $resultData['meta']['totalIncome'] += $amount;
+        } else {
+            $amount = (float)abs($amount);
+            if (!\array_key_exists($categoryName, $resultData['graphData']['expenses'])) {
+                $resultData['graphData']['expenses'][$categoryName] = 0;
+            }
+            $resultData['graphData']['expenses'][$categoryName] += $amount;
+            $resultData['meta']['totalExpenses'] += $amount;
+        }
+    }
 
 }
