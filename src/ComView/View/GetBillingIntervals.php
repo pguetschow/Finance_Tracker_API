@@ -55,7 +55,7 @@ class GetBillingIntervals extends AbstractView
                 'name' => $contract->getName(),
                 'amount' => $contract->getAmount(),
                 'startDate' => $contract->getStartDate()->format('Y-m-d'),
-                'endDate' => $contract->getEndDate()->format('Y-m-d'),
+                'endDate' => $contract->getEndDate() ? $contract->getEndDate()->format('Y-m-d'): null ,
                 'category' => $categoryName,
             ];
         }

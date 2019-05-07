@@ -101,7 +101,6 @@ class CreateContract implements CommandProcessorInterface
             $status = 'ERROR';
         }
 
-
         $this->contractRepository->save($contract);
 
         return new CommandResponse($status, $result);

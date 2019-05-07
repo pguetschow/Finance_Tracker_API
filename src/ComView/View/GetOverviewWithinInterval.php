@@ -79,7 +79,7 @@ class GetOverviewWithinInterval extends AbstractView
             'graphData' => [
                 'income' => [],
                 'expenses' => [],
-            ],
+            ]
         ];
 
         /** @var Entry $entry */
