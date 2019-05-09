@@ -79,7 +79,7 @@ class GetOverviewWithinInterval extends AbstractView
             'graphData' => [
                 'income' => [],
                 'expenses' => [],
-            ]
+            ],
         ];
 
         /** @var Entry $entry */
@@ -100,18 +100,22 @@ class GetOverviewWithinInterval extends AbstractView
             $categoryName = $contract->getCategory() !== null ? $contract->getCategory()->getName() : 'undefined';
             $rule = new Rule($contract->getIntervalRule());
             $rule->setStartDate($contract->getStartDate());
+
             if ($contract->getEndDate() !== null) {
-                $rule->setEndDate($contract->getEndDate());
+               $rule->setEndDate($contract->getEndDate());
             }
 
             $transformer = new  ArrayTransformer();
             $occurrences = $transformer->transform($rule)->startsBetween(new \DateTime($start), new \DateTime($end), true);
 
             foreach ($occurrences as $occurrence) {
+                if ($contract->getEndDate() !== null && $occurrence->getStart() > $contract->getEndDate()) {
+                    continue;
+                }
                 $result['contracts'][] = [
                     'name' => $contract->getName(),
                     'amount' => $contract->getAmount(),
-                    'billingDate' => $occurrence->getEnd()->format('Y-m-d'),
+                    'billingDate' => $occurrence->getStart()->format('Y-m-d'),
                     'interval' => $contract->getDueInterval(),
                     'category' => $categoryName,
                 ];

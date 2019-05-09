@@ -32,6 +32,7 @@ class ContractRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('e')
             ->andWhere('e.startDate >= :start')
             ->andWhere('e.endDate <= :end')
+            ->orWhere('e.endDate is null')
             ->andWhere('e.user = :user')
             ->setParameter('start', $start)
             ->setParameter('end', $end)
@@ -39,32 +40,4 @@ class ContractRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-    // /**
-    //  * @return Contract[] Returns an array of Contract objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Contract
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
