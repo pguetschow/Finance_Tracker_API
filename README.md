@@ -231,68 +231,106 @@ Vertrag anlegen/patchen
 ```json
 {
   "parameters": {
-    "start": "2019-03-01",
-    "end": "2019-03-06"
+    "start": "2019-01-01",
+    "end": "2019-05-09"
   },
   "pagination": [],
   "orderBy": null,
   "data": {
+    "meta": {
+      "totalIncome": 826.6,
+      "totalExpenses": 89.09,
+      "calculatedBalance": 737.51
+    },
+    "graphData": {
+      "income": {
+        "Lebensmittel": 99.4,
+        "test": 7.2,
+        "Gehalt": 720
+      },
+      "expenses": {
+        "Miete": 7.2,
+        "Test 123": 42,
+        "Unterhaltung": 19.9,
+        "Sonstiges": 19.99
+      }
+    },
     "entries": [
       {
         "name": "Was anderes",
         "amount": -7.2,
-        "date": "2019-03-05",
+        "billingDate": "2019-03-05",
         "category": "Miete"
+      },
+      {
+        "name": "Was anderes",
+        "amount": 17.2,
+        "billingDate": "2019-03-05",
+        "category": "Lebensmittel"
+      },
+      {
+        "name": "Einkauftest",
+        "amount": 7.2,
+        "billingDate": "2019-03-05",
+        "category": "test"
       },
       {
         "name": "Test",
         "amount": 82.2,
-        "date": "2019-03-05",
+        "billingDate": "2019-03-05",
         "category": "Lebensmittel"
+      },
+      {
+        "name": "Was neues",
+        "amount": -42,
+        "billingDate": "2019-03-05",
+        "category": "Test 123"
       }
     ],
     "contracts": [
       {
         "name": "Netflix",
         "amount": -9.95,
-        "startDate": "2019-03-05",
-        "endDate": "2019-03-05",
+        "billingDate": "2019-03-05",
+        "interval": "monthly",
+        "category": "Unterhaltung"
+      },
+      {
+        "name": "Netflix",
+        "amount": -9.95,
+        "billingDate": "2019-04-05",
         "interval": "monthly",
         "category": "Unterhaltung"
       },
       {
         "name": "Testvertrag",
         "amount": -19.99,
-        "startDate": "2019-03-05",
-        "endDate": "2019-03-05",
-        "interval": "quartal",
+        "billingDate": "2019-03-05",
+        "interval": "quarterly",
         "category": "Sonstiges"
       },
       {
         "name": "Gehalt",
         "amount": 240,
-        "startDate": "2019-03-05",
-        "endDate": "2019-03-05",
+        "billingDate": "2019-03-05",
+        "interval": "monthly",
+        "category": "Gehalt"
+      },
+      {
+        "name": "Gehalt",
+        "amount": 240,
+        "billingDate": "2019-04-05",
+        "interval": "monthly",
+        "category": "Gehalt"
+      },
+      {
+        "name": "Gehalt",
+        "amount": 240,
+        "billingDate": "2019-05-05",
         "interval": "monthly",
         "category": "Gehalt"
       }
-    ],
-    "graphData": {
-      "income": {
-        "Lebensmittel": 82.2,
-        "Gehalt": 240
-      },
-      "expenses": {
-        "Miete": -7.2,
-        "Unterhaltung": -9.95,
-        "Sonstiges": -19.99
-      }
-    },
-    "meta": {
-      "calculatedBalance": 285.06,
-      "totalIncome": 322.2,
-      "totalExpenses": -37.14
-    }
+    ]
   }
 }
 ```
@@ -310,14 +348,14 @@ GET /getBillingIntervals
         "name": "Netflix",
         "amount": -9.95,
         "startDate": "2019-03-05",
-        "endDate": "2019-03-05",
+        "endDate": "2019-05-05",
         "category": "Unterhaltung"
       },
       {
         "name": "Gehalt",
         "amount": 240,
         "startDate": "2019-03-05",
-        "endDate": "2019-03-05",
+        "endDate": null,
         "category": "Gehalt"
       }
     ],
