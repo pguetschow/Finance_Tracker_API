@@ -102,7 +102,7 @@ class GetOverviewWithinInterval extends AbstractView
             $rule->setStartDate($contract->getStartDate());
 
             if ($contract->getEndDate() !== null) {
-               $rule->setEndDate($contract->getEndDate());
+                $rule->setEndDate($contract->getEndDate());
             }
 
             $transformer = new  ArrayTransformer();

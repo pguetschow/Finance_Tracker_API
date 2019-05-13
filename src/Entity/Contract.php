@@ -59,17 +59,16 @@ class Contract
      */
     private $user;
 
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
 
     public function setId(string $id): self
     {
         $this->id = $id;
 
         return $this;
-    }
-
-    public function getId(): ?string
-    {
-        return $this->id;
     }
 
     public function getName(): ?string
@@ -128,7 +127,7 @@ class Contract
     public function getDueInterval(): string
     {
 
-        switch ($this->dueInterval){
+        switch ($this->dueInterval) {
             case self::MONTHLY:
                 $interval = 'monthly';
                 break;
@@ -144,12 +143,13 @@ class Contract
             default:
                 $interval = $this->dueInterval;
         }
+
         return $interval;
     }
 
     public function setDueInterval(string $dueInterval): self
     {
-        if (!in_array($dueInterval, self::ALLOWED_INTERVALS)){
+        if (!in_array($dueInterval, self::ALLOWED_INTERVALS, true)) {
             throw new \DomainException('Invalid Interval given!');
         }
         $this->dueInterval = $dueInterval;

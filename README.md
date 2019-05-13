@@ -13,7 +13,6 @@ Ein Nutzer kann wiederkehrende Einnahmen und Ausgaben in der Anwendung registrie
 - phone
 - password
 - salt
-- active
 
 
 Eine einmalige Einnahme/Ausgabe muss einer Kategorie zugeordnet werden.
@@ -37,7 +36,6 @@ Eine Vertrag muss einer Kategorie zugeordnet werden und kann um ein Dokument erg
 - startDate
 - endDate
 - interval (monatlich, quartalsweise, halbjährlich, jährlich)
-- filename
 
 # Views
 
@@ -164,23 +162,27 @@ Nutzer Patchen
 }
 ```
 
-GET /showUserById [id]
+GET /listCategories
 
-`/cv/showUserById?parameters[id]=1242ed44-fc9e-431b-8c01-31aaecd91689`
+`/cv/listCategories`
 
 Response:
 
 ```json
 {
-  "parameters": {
-    "id": "1242ed44-fc9e-431b-8c01-31aaecd91689"
-  },
+  "parameters": [],
   "pagination": [],
   "orderBy": null,
   "data": {
-    "firstName": "Anderer Name",
-    "lastName": "Nachname",
-    "email": "test@test.de"
+    "categories": [
+      "test",
+      "Gehalt",
+      "Lebensmittel",
+      "Sonstiges",
+      "Miete",
+      "Unterhaltung",
+      "Test 123"
+    ]
   }
 }
 ```

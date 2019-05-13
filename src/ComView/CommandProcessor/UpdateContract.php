@@ -73,7 +73,7 @@ class UpdateContract implements CommandProcessorInterface
                 $contract->setEndDate($request['endDate']);
             }
             if (\array_key_exists('interval', $request)) {
-                switch ($request['interval']){
+                switch ($request['interval']) {
                     case 'annually':
                         $rrule = Contract::ANNUALLY;
                         break;

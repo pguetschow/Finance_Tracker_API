@@ -75,7 +75,7 @@ class UpdateUser implements CommandProcessorInterface
                 $password = $this->passwordEncoder->encodePassword($request['password'], $user->getSalt());
                 $user->setPassword($password);
             }
-            
+
 
             $this->userRepository->save($user);
             $status = 'SUCCESS';

@@ -70,8 +70,6 @@ class User implements UserInterface
     private $token;
 
 
-
-
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
@@ -79,17 +77,16 @@ class User implements UserInterface
         $this->contracts = new ArrayCollection();
     }
 
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
 
     public function setId(string $id): self
     {
         $this->id = $id;
 
         return $this;
-    }
-
-    public function getId(): ?string
-    {
-        return $this->id;
     }
 
     public function getFirstName(): ?string
@@ -112,18 +109,6 @@ class User implements UserInterface
     public function setLastName(string $lastName): self
     {
         $this->lastName = $lastName;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
 
         return $this;
     }
@@ -274,6 +259,18 @@ class User implements UserInterface
         return $this->getEmail();
     }
 
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
     /**
      * Removes sensitive data from the user.
      *
@@ -304,8 +301,6 @@ class User implements UserInterface
 
         return $this;
     }
-
-
 
 
 }

@@ -58,7 +58,7 @@ class GdprExport implements CommandProcessorInterface
             throw new CommandNotFoundException($name);
         }
 
-        $user = $this->userRepository->findOneBy([ 'email' => $request['email']]);
+        $user = $this->userRepository->findOneBy(['email' => $request['email']]);
         if (!$user instanceof User) {
             throw new \RuntimeException('User not found');
         }

@@ -56,7 +56,7 @@ class ShowUserById extends AbstractView
                 'username' => $user->getUsername(),
                 'firstName' => $user->getFirstName(),
                 'lastName' => $user->getLastName(),
-                'createdAt' => $user->getCreatedAt()->format(DATE_ATOM)
+                'createdAt' => $user->getCreatedAt()->format(DATE_ATOM),
             ]
         );
     }

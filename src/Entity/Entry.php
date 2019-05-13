@@ -43,17 +43,16 @@ class Entry
      */
     private $user;
 
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
 
     public function setId(string $id): self
     {
         $this->id = $id;
 
         return $this;
-    }
-
-    public function getId(): ?string
-    {
-        return $this->id;
     }
 
     public function getName(): ?string

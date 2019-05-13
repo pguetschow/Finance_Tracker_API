@@ -15,7 +15,7 @@ services:
 
   App\Mailer\MailHandler:
     arguments:
-        $senderAddress: no-reply@awe.some
+      $senderAddress: no-reply@awe.some
 
   App\Mailer\MailHandlerInterface:
     alias: App\Mailer\MailHandler

@@ -52,7 +52,7 @@ class ResetPassword implements CommandProcessorInterface
 
         $token = uniqid('reset_', false);
 
-        $user = $this->userRepository->findOneBy([ 'email' => $request['email']]);
+        $user = $this->userRepository->findOneBy(['email' => $request['email']]);
         if (!$user instanceof User) {
             throw new \RuntimeException('User not found');
         }
