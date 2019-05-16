@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Doctrine\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="App\Doctrine\Repository\UserRepository")
  */
 class User implements UserInterface
 {
@@ -55,12 +55,12 @@ class User implements UserInterface
     private $createdAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Entry", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Doctrine\Entity\Entry", mappedBy="user")
      */
     private $entries;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Contract", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Doctrine\Entity\Contract", mappedBy="user")
      */
     private $contracts;
 

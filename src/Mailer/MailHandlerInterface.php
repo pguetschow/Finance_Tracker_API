@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Mailer;
 
 
-use App\Entity\User;
+use App\Doctrine\Entity\User;
 
 /**
  * @author Paul Martin Gütschow <guetschow@esonewmedia.de>

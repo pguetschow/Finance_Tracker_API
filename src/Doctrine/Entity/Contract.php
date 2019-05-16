@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Entity;
+namespace App\Doctrine\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ContractRepository")
+ * @ORM\Entity(repositoryClass="App\Doctrine\Repository\ContractRepository")
  */
 class Contract
 {
@@ -48,13 +48,13 @@ class Contract
     private $dueInterval;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="contracts")
+     * @ORM\ManyToOne(targetEntity="App\Doctrine\Entity\Category", inversedBy="contracts")
      * @ORM\JoinColumn(nullable=true)
      */
     private $category;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="contracts")
+     * @ORM\ManyToOne(targetEntity="App\Doctrine\Entity\User", inversedBy="contracts")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;

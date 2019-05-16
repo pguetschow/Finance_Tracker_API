@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Listener;
 
-use App\Helper\AuthenticationAwareHelper;
+use App\Authentication\AuthenticationHandler;
 use FOS\OAuthServerBundle\Model\AccessTokenManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -21,15 +21,15 @@ class KernelEventListener
     private $tokenStorage;
 
     /**
-     * @var AuthenticationAwareHelper
+     * @var AuthenticationHandler
      */
     private $protectedAware;
 
     /**
      * @param AccessTokenManagerInterface $tokenStorage
-     * @param AuthenticationAwareHelper $protectedAware
+     * @param AuthenticationHandler $protectedAware
      */
-    public function __construct(AccessTokenManagerInterface $tokenStorage, AuthenticationAwareHelper $protectedAware)
+    public function __construct(AccessTokenManagerInterface $tokenStorage, AuthenticationHandler $protectedAware)
     {
         $this->tokenStorage = $tokenStorage;
         $this->protectedAware = $protectedAware;

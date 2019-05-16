@@ -2,9 +2,9 @@ security:
   providers:
     users:
       entity:
-        class: 'App\Entity\User'
+        class: 'App\Doctrine\Entity\User'
   encoders:
-    App\Entity\User: argon2i
+    App\Doctrine\Entity\User: argon2i
 
   firewalls:
     dev:

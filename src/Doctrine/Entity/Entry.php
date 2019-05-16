@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Entity;
+namespace App\Doctrine\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\EntryRepository")
+ * @ORM\Entity(repositoryClass="App\Doctrine\Repository\EntryRepository")
  */
 class Entry
 {
@@ -32,13 +32,13 @@ class Entry
     private $date;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="entries")
+     * @ORM\ManyToOne(targetEntity="App\Doctrine\Entity\Category", inversedBy="entries")
      * @ORM\JoinColumn(nullable=true)
      */
     private $category;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="entries")
+     * @ORM\ManyToOne(targetEntity="App\Doctrine\Entity\User", inversedBy="entries")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;

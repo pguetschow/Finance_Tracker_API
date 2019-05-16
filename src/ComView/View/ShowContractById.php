@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\ComView\View;
 
-use App\Entity\Contract;
-use App\Repository\ContractRepository;
+use App\Doctrine\Entity\Contract;
+use App\Doctrine\Repository\ContractRepository;
 use Eos\ComView\Server\Exception\InvalidRequestException;
 use Eos\ComView\Server\Exception\ViewNotFoundException;
 use Eos\ComView\Server\Model\Value\ViewRequest;

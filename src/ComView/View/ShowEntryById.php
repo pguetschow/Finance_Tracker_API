@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\ComView\View;
 
-use App\Entity\Entry;
-use App\Repository\EntryRepository;
+use App\Doctrine\Entity\Entry;
+use App\Doctrine\Repository\EntryRepository;
 use Eos\ComView\Server\Exception\InvalidRequestException;
 use Eos\ComView\Server\Exception\ViewNotFoundException;
 use Eos\ComView\Server\Model\Value\ViewRequest;

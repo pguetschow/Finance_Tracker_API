@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Helper;
 
-use App\Entity\User;
+use App\Doctrine\Entity\User;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 

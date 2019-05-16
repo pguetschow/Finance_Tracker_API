@@ -1,9 +1,9 @@
 fos_oauth_server:
   db_driver: orm
-  client_class:        App\Entity\Client
-  access_token_class:  App\Entity\AccessToken
-  refresh_token_class: App\Entity\RefreshToken
-  auth_code_class:     App\Entity\AuthCode
+  client_class:        App\Doctrine\Entity\Client
+  access_token_class:  App\Doctrine\Entity\AccessToken
+  refresh_token_class: App\Doctrine\Entity\RefreshToken
+  auth_code_class:     App\Doctrine\Entity\AuthCode
   service:
     user_provider: Symfony\Component\Security\Core\User\UserProviderInterface
     options:

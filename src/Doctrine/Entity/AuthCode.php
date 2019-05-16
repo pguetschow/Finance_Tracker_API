@@ -2,16 +2,16 @@
 declare(strict_types=1);
 
 
-namespace App\Entity;
+namespace App\Doctrine\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use FOS\OAuthServerBundle\Entity\RefreshToken as BaseRefreshToken;
+use FOS\OAuthServerBundle\Entity\AuthCode as BaseAuthCode;
 
 /**
  * @author Paul Martin Gütschow <guetschow@esonewmedia.de>
  * @ORM\Entity
  */
-class RefreshToken extends BaseRefreshToken
+class AuthCode extends BaseAuthCode
 {
     /**
      * @ORM\Id
@@ -27,7 +27,7 @@ class RefreshToken extends BaseRefreshToken
     protected $client;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\ManyToOne(targetEntity="App\Doctrine\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $user;

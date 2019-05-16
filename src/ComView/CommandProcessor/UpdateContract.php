@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\ComView\CommandProcessor;
 
-use App\Entity\Category;
-use App\Entity\Contract;
-use App\Repository\CategoryRepository;
-use App\Repository\ContractRepository;
+use App\Doctrine\Entity\Category;
+use App\Doctrine\Entity\Contract;
+use App\Doctrine\Repository\CategoryRepository;
+use App\Doctrine\Repository\ContractRepository;
 use Eos\ComView\Server\Command\CommandProcessorInterface;
 use Eos\ComView\Server\Exception\CommandNotFoundException;
 use Eos\ComView\Server\Model\Value\CommandResponse;

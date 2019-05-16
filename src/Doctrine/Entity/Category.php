@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Entity;
+namespace App\Doctrine\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
+ * @ORM\Entity(repositoryClass="App\Doctrine\Repository\CategoryRepository")
  */
 class Category
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      */
     private $id;
 
@@ -24,12 +24,12 @@ class Category
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Contract", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="App\Doctrine\Entity\Contract", mappedBy="category")
      */
     private $contracts;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Entry", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="App\Doctrine\Entity\Entry", mappedBy="category")
      */
     private $entries;
 
@@ -39,7 +39,7 @@ class Category
         $this->entries = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }

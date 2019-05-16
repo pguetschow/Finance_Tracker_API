@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\ComView\View;
 
-use App\Repository\CategoryRepository;
+use App\Doctrine\Repository\CategoryRepository;
 use Eos\ComView\Server\Model\Value\ViewRequest;
 use Eos\ComView\Server\Model\Value\ViewResponse;
 

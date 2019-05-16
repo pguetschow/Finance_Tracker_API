@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Helper\AuthenticationAwareHelper;
-use App\Repository\UserRepository;
+use App\Authentication\AuthenticationHandler;
+use App\Doctrine\Repository\UserRepository;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Eos\ComView\Server\Command\CommandProcessorInterface;
 use Eos\ComView\Server\Exception\ViewNotFoundException;
@@ -37,7 +37,7 @@ class SecurityController extends AbstractController
      */
     private $views;
     /**
-     * @var AuthenticationAwareHelper
+     * @var AuthenticationHandler
      */
     private $protectedAware;
 
@@ -45,13 +45,13 @@ class SecurityController extends AbstractController
      * @param UserRepository $userRepository
      * @param CommandProcessorInterface $processor
      * @param ViewInterface $views
-     * @param AuthenticationAwareHelper $protectedAware
+     * @param AuthenticationHandler $protectedAware
      */
     public function __construct(
         UserRepository $userRepository,
         CommandProcessorInterface $processor,
         ViewInterface $views,
-        AuthenticationAwareHelper $protectedAware
+        AuthenticationHandler $protectedAware
     ) {
         $this->userRepository = $userRepository;
         $this->processor = $processor;

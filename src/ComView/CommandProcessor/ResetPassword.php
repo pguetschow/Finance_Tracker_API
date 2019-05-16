@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\ComView\CommandProcessor;
 
-use App\Entity\User;
+use App\Doctrine\Entity\User;
 use App\Mailer\MailHandlerInterface;
-use App\Repository\UserRepository;
+use App\Doctrine\Repository\UserRepository;
 use Eos\ComView\Server\Command\CommandProcessorInterface;
 use Eos\ComView\Server\Exception\CommandNotFoundException;
 use Eos\ComView\Server\Model\Value\CommandResponse;

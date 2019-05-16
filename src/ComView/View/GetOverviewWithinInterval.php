@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\ComView\View;
 
-use App\Entity\Contract;
-use App\Entity\Entry;
-use App\Helper\AuthenticationAwareHelper;
-use App\Repository\ContractRepository;
-use App\Repository\EntryRepository;
+use App\Authentication\AuthenticationHandlerInterface;
+use App\Doctrine\Entity\Contract;
+use App\Doctrine\Entity\Entry;
+use App\Doctrine\Repository\ContractRepository;
+use App\Doctrine\Repository\EntryRepository;
 use Eos\ComView\Server\Model\Value\ViewRequest;
 use Eos\ComView\Server\Model\Value\ViewResponse;
 use Recurr\Rule;
@@ -30,20 +30,23 @@ class GetOverviewWithinInterval extends AbstractView
     private $contractRepository;
 
     /**
-     * @var AuthenticationAwareHelper
+     * @var AuthenticationHandlerInterface
      */
-    private $protectedAware;
+    private $authenticationHandler;
 
     /**
      * @param EntryRepository $entryRepository
      * @param ContractRepository $contractRepository
-     * @param AuthenticationAwareHelper $protectedAware
+     * @param AuthenticationHandlerInterface $authenticationHandler
      */
-    public function __construct(EntryRepository $entryRepository, ContractRepository $contractRepository, AuthenticationAwareHelper $protectedAware)
-    {
+    public function __construct(
+        EntryRepository $entryRepository,
+        ContractRepository $contractRepository,
+        AuthenticationHandlerInterface $authenticationHandler
+    ) {
         $this->entryRepository = $entryRepository;
         $this->contractRepository = $contractRepository;
-        $this->protectedAware = $protectedAware;
+        $this->authenticationHandler = $authenticationHandler;
     }
 
 
@@ -67,7 +70,7 @@ class GetOverviewWithinInterval extends AbstractView
             $end = $request->getParameters()['end'];
         }
 
-        $user = $this->protectedAware->getUser();
+        $user = $this->authenticationHandler->getUser();
         $entries = $this->entryRepository->findWithinInterval($start, $end, $user);
         $contracts = $this->contractRepository->findWithinInterval($start, $end, $user);
 

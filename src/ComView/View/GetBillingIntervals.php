@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\ComView\View;
 
-use App\Entity\Contract;
-use App\Helper\AuthenticationAwareHelper;
-use App\Repository\ContractRepository;
+use App\Authentication\AuthenticationHandlerInterface;
+use App\Doctrine\Entity\Contract;
+use App\Doctrine\Repository\ContractRepository;
 use Eos\ComView\Server\Model\Value\ViewRequest;
 use Eos\ComView\Server\Model\Value\ViewResponse;
 
@@ -17,9 +17,9 @@ class GetBillingIntervals extends AbstractView
 {
 
     /**
-     * @var AuthenticationAwareHelper
+     * @var AuthenticationHandlerInterface
      */
-    private $protectedAware;
+    private $authenticationHandler;
 
     /**
      * @var ContractRepository
@@ -27,12 +27,12 @@ class GetBillingIntervals extends AbstractView
     private $contractRepository;
 
     /**
-     * @param AuthenticationAwareHelper $protectedAware
+     * @param AuthenticationHandlerInterface $authenticationHandler
      * @param ContractRepository $contractRepository
      */
-    public function __construct(AuthenticationAwareHelper $protectedAware, ContractRepository $contractRepository)
+    public function __construct(AuthenticationHandlerInterface $authenticationHandler, ContractRepository $contractRepository)
     {
-        $this->protectedAware = $protectedAware;
+        $this->authenticationHandler = $authenticationHandler;
         $this->contractRepository = $contractRepository;
     }
 
@@ -44,7 +44,7 @@ class GetBillingIntervals extends AbstractView
      */
     public function createView(string $name, ViewRequest $request): ViewResponse
     {
-        $user = $this->protectedAware->getUser();
+        $user = $this->authenticationHandler->getUser();
         $contracts = $this->contractRepository->findBy(['user' => $user]);
         $result = [];
 

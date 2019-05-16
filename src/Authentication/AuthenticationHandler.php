@@ -2,15 +2,15 @@
 declare(strict_types=1);
 
 
-namespace App\Helper;
+namespace App\Authentication;
 
-use App\Entity\User;
-use App\Repository\UserRepository;
+use App\Doctrine\Entity\User;
+use App\Doctrine\Repository\UserRepository;
 
 /**
  * @author Paul Martin Gütschow <guetschow@esonewmedia.de>
  */
-class AuthenticationAwareHelper
+class AuthenticationHandler implements AuthenticationHandlerInterface
 {
     /**
      * @var User|null
@@ -50,9 +50,9 @@ class AuthenticationAwareHelper
 
     /**
      * @param string|null $username
-     * @return AuthenticationAwareHelper
+     * @return AuthenticationHandler
      */
-    public function setUserName(?string $username): AuthenticationAwareHelper
+    public function setUserName(?string $username): AuthenticationHandler
     {
         $this->username = $username;
 

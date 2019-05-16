@@ -20,6 +20,12 @@ services:
   App\Mailer\MailHandlerInterface:
     alias: App\Mailer\MailHandler
 
+  App\Authentication\AuthenticationHandler: ~
+
+  App\Authentication\AuthenticationHandlerInterface:
+    alias: App\Authentication\AuthenticationHandler
+
+
   App\Controller\:
     resource: '../src/Controller'
     tags: ['controller.service_arguments']

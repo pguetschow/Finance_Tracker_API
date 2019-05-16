@@ -2,16 +2,16 @@
 declare(strict_types=1);
 
 
-namespace App\Entity;
+namespace App\Doctrine\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use FOS\OAuthServerBundle\Entity\AuthCode as BaseAuthCode;
+use FOS\OAuthServerBundle\Entity\AccessToken as BaseAccessToken;
 
 /**
  * @author Paul Martin Gütschow <guetschow@esonewmedia.de>
  * @ORM\Entity
  */
-class AuthCode extends BaseAuthCode
+class AccessToken extends BaseAccessToken
 {
     /**
      * @ORM\Id
@@ -27,7 +27,7 @@ class AuthCode extends BaseAuthCode
     protected $client;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\ManyToOne(targetEntity="App\Doctrine\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $user;
