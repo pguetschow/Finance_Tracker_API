@@ -104,15 +104,16 @@ class GetOverviewWithinInterval extends AbstractView
             $rule = new Rule($contract->getIntervalRule());
             $rule->setStartDate($contract->getStartDate());
 
-            if ($contract->getEndDate() !== null) {
-                $rule->setEndDate($contract->getEndDate());
+            $contractEndDate = $contract->getEndDate();
+            if ($contractEndDate !== null) {
+                $rule->setEndDate($contractEndDate);
             }
 
             $transformer = new  ArrayTransformer();
             $occurrences = $transformer->transform($rule)->startsBetween(new \DateTime($start), new \DateTime($end), true);
 
             foreach ($occurrences as $occurrence) {
-                if ($contract->getEndDate() !== null && $occurrence->getStart() > $contract->getEndDate()) {
+                if ($contractEndDate !== null && $occurrence->getStart() > $contractEndDate) {
                     continue;
                 }
                 $result['contracts'][] = [

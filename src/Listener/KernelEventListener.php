@@ -7,6 +7,8 @@ namespace App\Listener;
 use App\Authentication\AuthenticationHandler;
 use FOS\OAuthServerBundle\Model\AccessTokenManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 
@@ -63,6 +65,30 @@ class KernelEventListener
                 $userId = $token->getUser();
                 $this->protectedAware->setUserName($userId->getUsername());
             }
+        }
+    }
+
+    /**
+     * @param FilterResponseEvent $event
+     */
+    public function onKernelResponse(FilterResponseEvent $event): void
+    {
+        if ($event->getRequest()->getMethod() === 'OPTIONS') {
+            $event->setResponse(
+                new Response(
+                    '', 204, [
+                    'Access-Control-Allow-Origin' => '*',
+                    'Access-Control-Allow-Credentials' => 'true',
+                    'Access-Control-Allow-Methods' => 'GET, POST, PUT, DELETE, OPTIONS',
+                    'Access-Control-Allow-Headers' => 'DNT, X-User-Token, Keep-Alive, User-Agent, X-Requested-With, If-Modified-Since, Cache-Control, Content-Type',
+                    'Access-Control-Max-Age' => 1728000,
+                    'Content-Type' => 'text/plain charset=UTF-8',
+                    'Content-Length' => 0,
+                ]
+                )
+            );
+
+            return;
         }
     }
 }

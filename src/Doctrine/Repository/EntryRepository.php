@@ -28,6 +28,12 @@ class EntryRepository extends ServiceEntityRepository
         return $entry;
     }
 
+    public function delete(Entry $entry): void
+    {
+        $this->_em->remove($entry);
+        $this->_em->flush();
+    }
+
 
     public function findWithinInterval($start, $end, $user)
     {

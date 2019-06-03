@@ -225,6 +225,23 @@ Vertrag anlegen/patchen
 }
 ```
 
+Objekt löschen
+
+Mit dem Command kann unter Angabe des `objectType` ein Objekt vom Typ `user`, `entry` oder `contract` mit der zugehörigen ID gelöscht werden.
+
+```json
+{
+  "1": {
+	"command": "deleteObject",
+	  "parameters": {
+            "id": "1142ed44-fc9e-431b-8c01-31aaecd91689",
+            "objectType": "contract"
+		}
+	}
+}
+```
+
+
 
 /getOverviewWithinInterval [start, end]
 

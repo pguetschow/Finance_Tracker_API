@@ -27,6 +27,13 @@ class ContractRepository extends ServiceEntityRepository
         return $contract;
     }
 
+    public function delete(Contract $contract): void 
+    {
+        $this->_em->remove($contract);
+        $this->_em->flush();
+
+    }
+
     public function findWithinInterval($start, $end, $user)
     {
         return $this->createQueryBuilder('e')

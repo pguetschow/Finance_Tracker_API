@@ -28,6 +28,14 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
         return $user;
     }
 
+
+    public function delete(User $user): void
+    {
+        $this->_em->remove($user);
+        $this->_em->flush();
+
+    }
+
     /**
      * @param string $usernameOrEmail
      * @return mixed|\Symfony\Component\Security\Core\User\UserInterface|null
