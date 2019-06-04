@@ -52,6 +52,7 @@ class GetBillingIntervals extends AbstractView
         foreach ($contracts as $contract) {
             $categoryName = $contract->getCategory() !== null ? $contract->getCategory()->getName() : 'undefined';
             $result[$contract->getDueInterval()][] = [
+                'id' => $contract->getId(),
                 'name' => $contract->getName(),
                 'amount' => $contract->getAmount(),
                 'startDate' => $contract->getStartDate()->format('Y-m-d'),

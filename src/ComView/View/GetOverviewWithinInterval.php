@@ -89,6 +89,7 @@ class GetOverviewWithinInterval extends AbstractView
         foreach ($entries as $entry) {
             $categoryName = $entry->getCategory() !== null ? $entry->getCategory()->getName() : 'undefined';
             $result['entries'][] = [
+                'id' => $entry->getId(),
                 'name' => $entry->getName(),
                 'amount' => $entry->getAmount(),
                 'billingDate' => $entry->getDate()->format('Y-m-d'),
@@ -117,6 +118,7 @@ class GetOverviewWithinInterval extends AbstractView
                     continue;
                 }
                 $result['contracts'][] = [
+                    'id' => $contract->getId(),
                     'name' => $contract->getName(),
                     'amount' => $contract->getAmount(),
                     'billingDate' => $occurrence->getStart()->format('Y-m-d'),
