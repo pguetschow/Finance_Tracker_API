@@ -67,10 +67,10 @@ class UpdateContract implements CommandProcessorInterface
                 $contract->setAmount($request['amount']);
             }
             if (\array_key_exists('startDate', $request)) {
-                $contract->setStartDate($request['startDate']);
+                $contract->setStartDate(\DateTime::createFromFormat('Y-m-d', $request['startDate']));
             }
             if (\array_key_exists('endDate', $request)) {
-                $contract->setEndDate($request['endDate']);
+                $contract->setEndDate(\DateTime::createFromFormat('Y-m-d', $request['endDate']));
             }
             if (\array_key_exists('interval', $request)) {
                 switch ($request['interval']) {

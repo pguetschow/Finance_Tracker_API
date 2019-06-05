@@ -67,7 +67,7 @@ class UpdateEntry implements CommandProcessorInterface
                 $entry->setAmount($request['amount']);
             }
             if (\array_key_exists('date', $request)) {
-                $entry->setDate($request['date']);
+                $entry->setDate(\DateTime::createFromFormat('Y-m-d',$request['date']));
             }
 
             if (\array_key_exists('category', $request)) {
